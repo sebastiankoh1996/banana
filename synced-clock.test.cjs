@@ -1,5 +1,13 @@
 const assert=require('node:assert/strict');
-const {createClock}=require('./synced-clock.js');
+const {createClock,fromTimeApi}=require('./synced-clock.js');
+const response={year:2026,month:10,day:14,hour:4,minute:30,seconds:15,milliSeconds:123,timeZone:'UTC'};
+assert.equal(fromTimeApi(response).unixMs,Date.UTC(2026,9,14,4,30,15,123));
+assert.equal(fromTimeApi({...response,milliSeconds:undefined}).unixMs,Date.UTC(2026,9,14,4,30,15));
+assert.throws(()=>fromTimeApi({...response,timeZone:'Asia/Singapore'}));
+assert.throws(()=>fromTimeApi({...response,month:2,day:30}));
+assert.throws(()=>fromTimeApi({...response,hour:24}));
+assert.throws(()=>fromTimeApi({...response,seconds:'15'}));
+assert.throws(()=>fromTimeApi(null));
 let pc=Date.UTC(2026,9,14,1),mono=1000,online=true;
 const clock=createClock({pcNow:()=>pc,monotonicNow:()=>mono,isOnline:()=>online});
 assert.equal(clock.read().now,pc);
