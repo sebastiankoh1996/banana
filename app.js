@@ -92,9 +92,9 @@ function syncClock(){
   if(clockRequest)return clockRequest;
   const generation=clockGeneration,started=performance.now();
   clockRequest=(async()=>{try{
-    const response=await fetch('/api/time',{cache:'no-store',signal:AbortSignal.timeout(7000)});
+    const response=await fetch('https://timeapi.io/api/Time/current/zone?timeZone=UTC',{cache:'no-store',signal:AbortSignal.timeout(7000)});
     if(!response.ok)throw Error('Time sync unavailable');
-    const sample=await response.json();
+    const sample=BananaClock.fromTimeApi(await response.json());
     if(generation===clockGeneration&&navigator.onLine)accurateClock.accept(sample,started,performance.now());
   }catch{if(generation===clockGeneration)accurateClock.reset();}finally{clockRequest=null;tick();}})();
   return clockRequest;
