@@ -1,0 +1,20 @@
+# Local previews and design snapshots
+*.jpg
+*.before-*.css
+*.before-*.html
+reference-dom.txt
+reference-evidence.jpg
+timer-reference-evidence.json
+timer-alarm-test.json
+EVIDENCE.md
+TIMER-EVIDENCE.md
+VALIDATION.md
+
+# Local dependencies, credentials and editor state
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log

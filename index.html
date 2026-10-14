@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sebastian Banana Assist</title><link rel="stylesheet" href="style.css"><script defer src="pinyin-pro.js"></script><script defer src="timer.js"></script><script defer src="synced-clock.js"></script><script defer src="app.js"></script></head>
+<body><div class="app">
+<header><div class="identity"><div><h1>Sebastian Banana Assist</h1><p>Write or paste Chinese. Follow the pinyin, explore a meaning, and listen along.</p></div></div><div class="timer-wrap"><div class="countdown" id="countdown" role="timer" aria-live="off" data-phase="normal"><div class="timer-face"><span aria-hidden="true">◷</span><span id="clock">--:--</span><span id="clock-label">to 12pm</span></div></div><span id="timer-status" class="sr-only" role="status" aria-live="polite"></span></div></header>
+<main><div class="workspace-meta"><span><span class="status-dot"></span> Your reading workspace</span><span>Stored on this device</span></div>
+<div class="reading-layout"><section class="workspace" aria-label="Chinese reading workspace">
+<div class="toolbar"><div class="actions"><button id="paste" class="paste-button">Paste text</button><button id="copy">Copy</button><button id="undo" disabled>Undo</button></div><div class="preferences"><button id="hover" aria-pressed="true">Meanings: On</button><div class="sizes" role="group" aria-label="Text size"><button data-size="small" aria-pressed="false">A<span class="sr-only"> Small</span></button><button data-size="medium" aria-pressed="true">A<span class="sr-only"> Medium</span></button><button data-size="large" aria-pressed="false">A<span class="sr-only"> Large</span></button></div></div></div>
+<div class="editor-frame"><div class="editor" id="editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Chinese pinyin editor" spellcheck="false" data-size="medium"></div><div class="empty-state" id="empty-state" hidden><span class="empty-character" aria-hidden="true">文<span>wén</span></span><h2>Your next read starts here.</h2><p>Paste or type a Chinese passage in this space.</p><button id="example">Try a short example</button></div></div>
+<div class="editor-footer"><span id="text-count">0 characters</span><span>Chinese · Mandarin</span></div>
+<div class="audio-bar"><span id="reading" class="sr-only"></span><div class="audio-controls"><div class="audio-buttons"><button id="play" class="primary">▶ Listen</button><button id="pause" disabled>Pause</button><button id="stop" disabled>Stop</button></div><label class="speed">Speed <select id="speed"><option value="0.7">0.7×</option><option value="0.9" selected>0.9×</option><option value="1">1×</option><option value="1.2">1.2×</option></select></label></div></div><div class="toast" id="message" role="status" aria-live="polite"></div>
+</section><aside class="translation" aria-label="English translation"><div class="translation-heading"><h2>English</h2><button id="translate" aria-expanded="false" aria-controls="translation-output">Translate document ↗</button></div><div id="translation-output" hidden aria-live="polite"></div></aside></div></main>
+<footer><div><a href="README.md" target="_blank" rel="noopener">About this app</a><a href="https://www.mdbg.net/chinese/dictionary?page=cedict" target="_blank" rel="noopener">CC-CEDICT dictionary ↗</a></div></footer></div>
+<div id="word-tip" class="word-tip" role="tooltip" hidden><div id="tip-word"></div><div id="tip-pinyin"></div><p id="tip-meaning"></p></div></body></html>
+
+
+
+
+
+
+
+
+
