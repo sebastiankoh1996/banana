@@ -25,7 +25,7 @@ Then open http://127.0.0.1:4173/ . No package installation or build is required.
 
 The timer follows Singapore time: noon and 6pm daily. It glows and grows during the final ten minutes, wiggles at 00:00 for ten minutes, then automatically starts the next countdown. No dismissal is needed. A refresh during an alarm preserves the correct alarm window.
 
-Internet time is fetched from TimeAPI's UTC endpoint through the local server on startup, every minute, on reconnection, and when the page becomes visible again. Network delay is compensated, with estimated uncertainty shown in the time-source tooltip. Successfully synchronized time advances using a monotonic clock, so changing the PC clock does not change the online countdown. Offline, failed synchronization, or samples older than three minutes fall back to the PC clock. The clock source is available in the timer tooltip. This does not change the computer's system clock.
+Internet time is fetched directly from TimeAPI's UTC endpoint by the browser on startup, every minute, on reconnection, and when the page becomes visible again. No backend is needed on GitHub Pages. Network delay is compensated, with estimated uncertainty shown in the time-source tooltip. Successfully synchronized time advances using a monotonic clock, so changing the PC clock does not change the online countdown. Offline, failed synchronization, or samples older than three minutes fall back to the PC clock. The clock source is available in the timer tooltip. This does not change the computer's system clock.
 
 Chinese text is stored in this browser's local storage. Pinyin and dictionary lookup operate locally. The optional Translate button sends text to MyMemory; it is limited to 3,000 characters and subject to that service's quotas. Font files are fetched from Google Fonts; system fonts are used if unavailable. Speech availability and whether a voice runs locally depend on the browser/device. Documents are not synchronized between devices.
 
@@ -37,6 +37,6 @@ CC-CEDICT by its contributing authors, distributed by MDBG under Creative Common
 
 Run npm test and npm run check before publishing changes. The repository includes AGENTS.md so Codex can follow the project preferences.
 
-The Node server is required for the internet-time endpoint. GitHub stores the source; GitHub Pages alone cannot run this server. Deploying to a static host requires adapting time synchronization.
+The public website is https://sebastiankoh1996.github.io/banana/ . GitHub Pages serves the browser files directly from the root of the main branch. The Node server remains an optional local preview; the published website does not need it. Speech depends on the visitor's device, and online translation remains subject to MyMemory's service availability and quotas.
 
 
