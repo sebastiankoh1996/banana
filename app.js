@@ -1,9 +1,8 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const editor = $('editor');
-const initial = '你好，我喜欢香蕉。\n今天我们一起学习中文。\n\n陪香蕉人一起生存在汉字世界。';
-let text = initial;
-try { text = localStorage.getItem('banana.text') ?? initial; } catch {}
+let text = '';
+try { text = localStorage.getItem('banana.text') ?? ''; } catch {}
 let dictionary = {}, undo = [], meaningsOn = true, composing = false, timer, selected = '', audioState = 'idle', translationVersion = 0;
 const segmenter = new Intl.Segmenter('zh', {granularity:'word'});
 const han = /\p{Script=Han}/u;
@@ -58,7 +57,6 @@ $('paste').onclick=async()=>{try{const value=await navigator.clipboard.readText(
 $('copy').onclick=async()=>{flush();try{await navigator.clipboard.writeText(text);notify('Chinese text copied without pinyin.');}catch{notify('Clipboard access is unavailable. Select the text and copy it manually.');}};
 function undoEdit(){clearTimeout(timer);if(!undo.length)return;text=undo.pop();persist();translationVersion++;$('translation-output').hidden=true;render();notify('Last edit undone.');}
 $('undo').onclick=undoEdit;
-$('example').onclick=()=>{changed(initial);editor.focus();notify('Example loaded. Tap a Chinese word to explore its meaning.');};
 editor.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'&&!event.shiftKey){event.preventDefault();undoEdit();}if(event.key==='Escape')hideTip();});
 $('hover').onclick=()=>{meaningsOn=!meaningsOn;$('hover').textContent=`Meanings: ${meaningsOn?'On':'Off'}`;$('hover').setAttribute('aria-pressed',meaningsOn);hideTip();};
 document.querySelectorAll('[data-size]').forEach(button=>{if(button.tagName!=='BUTTON')return;button.onclick=()=>{editor.dataset.size=button.dataset.size;document.querySelectorAll('button[data-size]').forEach(b=>b.setAttribute('aria-pressed',b===button));};});
@@ -122,5 +120,30 @@ window.addEventListener('online',()=>{clockGeneration++;if(clockRequest)clockReq
 document.addEventListener('visibilitychange',()=>{document.documentElement.classList.toggle('timer-paused',document.hidden);if(!document.hidden){clockGeneration++;accurateClock.reset();tick();if(clockRequest)clockRequest.finally(syncClock);else syncClock();}});
 tick();setInterval(tick,1000);render();
 syncClock();setInterval(syncClock,60000);
-fetch('dictionary.json').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{dictionary=data;}).catch(()=>{notify('Pinyin still works. Start the app with the included server to load word meanings.');});
+fetch('dictionary.json', {signal: AbortSignal.timeout(10000)}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{dictionary=data;}).catch(()=>{notify('Pinyin still works. Reload the page to retry loading word meanings.');}).finally(()=>window.dispatchEvent(new Event('banana-ready')));
 
+
+
+
+const toolkitDropdown = $('toolkit-dropdown');
+const compactToolkit = window.matchMedia('(max-width: 1100px)');
+const toolkitBar = toolkitDropdown.closest('.toolbar');
+const toolkitActions = toolkitBar.querySelector('.actions');
+const toolkitPreferences = toolkitBar.querySelector('.preferences');
+const toolkitSizes = toolkitBar.querySelector('.sizes');
+const toolkitMenu = toolkitDropdown.querySelector('.toolkit-menu');
+function syncToolkitLayout(){
+  toolkitDropdown.open = false;
+  if(compactToolkit.matches){
+    toolkitBar.insertBefore($('hover'),toolkitDropdown);
+    toolkitMenu.append(toolkitActions,toolkitSizes);
+  }else{
+    toolkitBar.insertBefore(toolkitActions,toolkitPreferences);
+    toolkitPreferences.append($('hover'),toolkitSizes);
+  }
+}
+syncToolkitLayout();
+compactToolkit.addEventListener('change',syncToolkitLayout);
+toolkitDropdown.addEventListener('click',event=>{if(compactToolkit.matches&&event.target.closest('button'))toolkitDropdown.open=false;});
+document.addEventListener('click',event=>{if(compactToolkit.matches&&!toolkitDropdown.contains(event.target))toolkitDropdown.open=false;});
+toolkitDropdown.addEventListener('keydown',event=>{if(event.key==='Escape'&&compactToolkit.matches){toolkitDropdown.open=false;toolkitDropdown.querySelector('summary').focus();}});

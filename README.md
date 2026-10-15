@@ -40,3 +40,5 @@ Run npm test and npm run check before publishing changes. The repository include
 The public website is https://sebastiankoh1996.github.io/banana/ . GitHub Pages serves the browser files directly from the root of the main branch. The Node server remains an optional local preview; the published website does not need it. Speech depends on the visitor's device, and online translation remains subject to MyMemory's service availability and quotas.
 
 
+
+The interface includes the Sebastian wordmark, an introductory loading animation, a muted looping video background, and a compact Tools menu at widths up to 1100px. New workspaces start blank; saved reading text is retained.

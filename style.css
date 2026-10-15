@@ -43,19 +43,50 @@ header{display:grid;grid-template-columns:minmax(0,1fr) clamp(148px,26vw,300px);
 @media(max-width:520px){#clock-label{display:none}}
 .clock-source{font-size:10px;color:var(--muted);white-space:nowrap}.timer-wrap{gap:16px}
 .translation-heading{justify-content:space-between;flex-wrap:nowrap;gap:16px}.translation #translate{margin:0;width:auto;max-width:none;flex-shrink:0}@media(max-width:520px){.translation-heading{gap:12px}.translation #translate{padding:8px 10px;font-size:11px}}
-/* Larger base timer; warning/alarm scaling remains relative to this size. */
-header{grid-template-columns:minmax(0,1fr) clamp(220px,48vw,560px);align-items:center}
+/* Half-size responsive timer base; warning/alarm transforms can exceed this cap. */
+header{grid-template-columns:minmax(0,1fr) clamp(110px,24vw,280px);align-items:center}
 .timer-wrap{padding:32px 0}
-.timer-face{font-size:clamp(18px,2vw,26px);padding:clamp(10px,1.3vw,18px) clamp(12px,1.6vw,24px);gap:clamp(6px,.9vw,12px)}
-#clock{font-size:clamp(20px,2.3vw,32px)}
-#clock-label{font-size:clamp(16px,1.7vw,22px)}
+.timer-face{font-size:clamp(9px,1vw,13px);padding:clamp(5px,.65vw,9px) clamp(6px,.8vw,12px);gap:clamp(3px,.45vw,6px)}
+#clock{font-size:clamp(10px,1.15vw,16px)}
+#clock-label{font-size:clamp(8px,.85vw,11px)}
 .translation-heading h2{flex-shrink:0}.translation #translate{flex:1;min-width:0;max-width:none;width:auto;text-align:center}
-@media(max-width:800px){header{grid-template-columns:minmax(0,1fr) clamp(200px,48vw,384px)}}
-@media(max-width:520px){header{grid-template-columns:minmax(0,1fr) clamp(170px,50vw,260px);gap:8px}.timer-wrap{padding:24px 0}.timer-face{font-size:18px;padding:8px 10px;gap:6px}#clock{font-size:20px}#clock-label{display:none}.translation-heading{gap:16px}}
-@media(max-width:520px){header{grid-template-columns:minmax(0,1fr) clamp(160px,calc(55vw + 8px),224px)}.timer-face{font-size:clamp(14px,4.62vw,18px);padding:8px clamp(6px,2.56vw,10px);gap:clamp(4px,1.54vw,6px)}#clock{font-size:clamp(16px,5.13vw,20px)}}@media(max-width:360px){.identity .mark{display:none}}
+@media(max-width:800px){header{grid-template-columns:minmax(0,1fr) clamp(100px,24vw,192px)}}
+@media(max-width:520px){header{grid-template-columns:minmax(0,1fr) clamp(85px,25vw,130px);gap:8px}.timer-wrap{padding:24px 0}.timer-face{font-size:9px;padding:4px 5px;gap:3px}#clock{font-size:10px}#clock-label{display:none}.translation-heading{gap:16px}}
+@media(max-width:520px){header{grid-template-columns:minmax(0,1fr) clamp(80px,calc(27.5vw + 4px),112px)}.timer-face{font-size:clamp(7px,2.31vw,9px);padding:4px clamp(3px,1.28vw,5px);gap:clamp(2px,.77vw,3px)}#clock{font-size:clamp(8px,2.565vw,10px)}}@media(max-width:360px){.identity .mark{display:none}}
 /* Normal timer takes only its actual width; growth reserves its own room. */
 header:has(.countdown[data-phase=normal]){grid-template-columns:minmax(0,1fr) max-content}
 header:has(.countdown[data-phase=normal]) .timer-wrap{width:auto}
 .identity p{max-width:none;text-wrap:wrap}
 footer{justify-content:flex-end}
 header{padding-block:16px}.timer-wrap{padding-block:16px}@media(max-width:520px){header{padding-block:12px}.timer-wrap{padding-block:12px}}
+
+
+/* Crop the supplied logo visually while preserving the original image. */
+.brand-heading{display:flex;align-items:center;gap:clamp(8px,1.2vw,16px);flex-wrap:wrap}.brand-logo{position:relative;display:block;flex:none;width:clamp(120px,14vw,160px);aspect-ratio:1020/230;overflow:hidden;mix-blend-mode:screen}.brand-logo img{position:absolute;width:125.49%;height:auto;max-width:none;left:-12.745%;top:-226.087%}.brand-heading h1{margin:0;font-size:clamp(19px,2.8vw,23px);text-wrap:nowrap;transform:translateY(.18em)}@media(max-width:520px){.brand-logo{width:120px}.brand-heading{gap:8px}}
+
+
+.loading-screen{position:fixed;inset:0;z-index:100;background:#000;display:grid;place-items:center}.loading-screen img{display:block;width:min(400px,85vw);height:auto}.loading-screen[hidden]{display:none}
+
+/* Reveal the workspace smoothly after the minimum loading playback. */
+.app{opacity:1;transition:opacity .6s ease}.app.is-loading{opacity:0}.loading-screen{opacity:1;transition:opacity .6s ease}.loading-screen.is-leaving{opacity:0}@media(prefers-reduced-motion:reduce){.app,.loading-screen{transition:none}}
+
+/* Fixed video covers the viewport throughout the full page scroll. */
+.page-background{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--paper)}.page-background video{width:100%;height:100%;object-fit:cover;display:block}.page-background:after{content:'';position:absolute;inset:0;background:rgba(8,9,11,.65)}.app{position:relative;z-index:1}.loading-screen{z-index:100}
+
+/* Compact toolkit below 1100px, with native disclosure keyboard support. */
+.toolkit-dropdown{display:none}.toolkit-dropdown summary,.size-label{display:none}
+@media(max-width:1100px){
+  .toolbar{justify-content:flex-start;flex-wrap:nowrap;gap:8px;position:relative}
+  .toolbar>.preferences{display:none}.toolbar>#hover{order:0;margin:0}
+  .toolkit-dropdown{display:block;position:relative;order:1}
+  .toolkit-dropdown summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:44px;padding:8px 16px;border:1px solid #46474b;border-radius:6px;background:#303135;color:var(--ink);cursor:pointer;list-style:none}
+  .toolkit-dropdown summary::-webkit-details-marker{display:none}
+  .toolkit-dropdown summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  .toolkit-dropdown[open] summary{border-color:#8a7555;background:#343029}
+  .toolkit-dropdown .toolkit-menu{display:none}
+  .toolkit-dropdown[open] .toolkit-menu{display:flex;flex-direction:column;position:absolute;top:calc(100% + 8px);left:0;z-index:20;width:220px;max-width:calc(100vw - 150px);padding:8px;background:#24262a;border:1px solid #555047;border-radius:8px;box-shadow:0 8px 24px #0006}
+  .toolkit-menu .actions{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+  .toolkit-menu .actions button{text-align:left;width:100%}
+  .toolkit-menu .sizes{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:8px 0 0;padding:8px 0 0;border-left:0;border-top:1px solid #46464a}
+  .toolkit-menu .size-label{display:block;flex-basis:100%;padding:4px 8px;font-size:11px;color:var(--muted)}
+}
