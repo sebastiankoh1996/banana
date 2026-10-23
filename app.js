@@ -121,29 +121,3 @@ document.addEventListener('visibilitychange',()=>{document.documentElement.class
 tick();setInterval(tick,1000);render();
 syncClock();setInterval(syncClock,60000);
 fetch('dictionary.json', {signal: AbortSignal.timeout(10000)}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{dictionary=data;}).catch(()=>{notify('Pinyin still works. Reload the page to retry loading word meanings.');}).finally(()=>window.dispatchEvent(new Event('banana-ready')));
-
-
-
-
-const toolkitDropdown = $('toolkit-dropdown');
-const compactToolkit = window.matchMedia('(max-width: 1100px)');
-const toolkitBar = toolkitDropdown.closest('.toolbar');
-const toolkitActions = toolkitBar.querySelector('.actions');
-const toolkitPreferences = toolkitBar.querySelector('.preferences');
-const toolkitSizes = toolkitBar.querySelector('.sizes');
-const toolkitMenu = toolkitDropdown.querySelector('.toolkit-menu');
-function syncToolkitLayout(){
-  toolkitDropdown.open = false;
-  if(compactToolkit.matches){
-    toolkitBar.insertBefore($('hover'),toolkitDropdown);
-    toolkitMenu.append(toolkitActions,toolkitSizes);
-  }else{
-    toolkitBar.insertBefore(toolkitActions,toolkitPreferences);
-    toolkitPreferences.append($('hover'),toolkitSizes);
-  }
-}
-syncToolkitLayout();
-compactToolkit.addEventListener('change',syncToolkitLayout);
-toolkitDropdown.addEventListener('click',event=>{if(compactToolkit.matches&&event.target.closest('button'))toolkitDropdown.open=false;});
-document.addEventListener('click',event=>{if(compactToolkit.matches&&!toolkitDropdown.contains(event.target))toolkitDropdown.open=false;});
-toolkitDropdown.addEventListener('keydown',event=>{if(event.key==='Escape'&&compactToolkit.matches){toolkitDropdown.open=false;toolkitDropdown.querySelector('summary').focus();}});
