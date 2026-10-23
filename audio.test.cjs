@@ -1,0 +1,20 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const nodes=Object.fromEntries(['play','play-label','pause','stop','speed','audio-progress','audio-elapsed'].map(id=>[id,{}]));
+nodes.speed.value='1';
+let spoken;
+const speech={getVoices:()=>[{lang:'zh-CN'}],cancel(){},speak(u){spoken=u},pause(){},resume(){}};
+const context=vm.createContext({$:id=>nodes[id],audioState:'idle',text:'今天阳光很好',selected:'',flush(){},notify(){},window:{speechSynthesis:speech},speechSynthesis:speech,SpeechSynthesisUtterance:function(value){this.text=value;}});
+const source=fs.readFileSync(require('node:path').join(__dirname,'app.js'),'utf8');
+vm.runInContext(source.slice(source.indexOf('function setAudio('),source.indexOf("window.addEventListener('pagehide'")),context);
+nodes.play.onclick();
+assert.equal(spoken.text,'今天阳光很好');assert.equal(nodes.play.disabled,true);assert.equal(nodes.pause.disabled,false);
+spoken.onboundary({charIndex:3,elapsedTime:4});assert.equal(nodes['audio-progress'].value,.5);assert.equal(nodes['audio-elapsed'].textContent,'0:04');
+nodes.pause.onclick();assert.equal(nodes['play-label'].textContent,'Resume');
+nodes.play.onclick();assert.equal(nodes.play.disabled,true);
+nodes.stop.onclick();assert.equal(nodes['audio-progress'].value,0);assert.equal(nodes['audio-elapsed'].textContent,'0:00');assert.equal(nodes.stop.disabled,true);
+nodes.play.onclick();spoken.onend();assert.equal(nodes['audio-progress'].value,1);assert.equal(nodes.play.disabled,false);
+console.log('Audio controls, speech progress, pause/resume, stop reset and completion passed.');
+
