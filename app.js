@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 const editor = $('editor');
 let text = '';
 try { text = localStorage.getItem('banana.text') ?? ''; } catch {}
-let dictionary = {}, undo = [], meaningsOn = true, composing = false, timer, selected = '', audioState = 'idle', translationVersion = 0;
+let dictionary = {}, undo = [], meaningsOn = false, composing = false, timer, selected = '', audioState = 'idle', translationVersion = 0;
 const segmenter = new Intl.Segmenter('zh', {granularity:'word'});
 const han = /\p{Script=Han}/u;
 function notify(message) { $('message').textContent = message; }
@@ -38,6 +38,9 @@ function render(offset=null) {
   $('translate').disabled=!text.trim();
   $('translation-placeholder').hidden=!$('translation-output').hidden;
   if(audioState==='idle') $('play').disabled=!text.trim();
+  $('translate').textContent=$('translation-output').hidden?'Translate: OFF':'Translate: ON';
+  $('translate').setAttribute('aria-pressed',String(!$('translation-output').hidden));
+  $('translation-panel').hidden=$('translation-output').hidden;
 }
 function changed(value, offset=null) {
   if(value===text) return;
@@ -59,7 +62,7 @@ $('copy').onclick=async()=>{flush();try{await navigator.clipboard.writeText(text
 function undoEdit(){clearTimeout(timer);if(!undo.length)return;text=undo.pop();persist();translationVersion++;$('translation-output').hidden=true;render();notify('Last edit undone.');}
 $('undo').onclick=undoEdit;
 editor.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'&&!event.shiftKey){event.preventDefault();undoEdit();}if(event.key==='Escape')hideTip();});
-$('hover').onclick=()=>{meaningsOn=!meaningsOn;$('hover').setAttribute('aria-pressed',meaningsOn);hideTip();};
+$('hover').onclick=()=>{meaningsOn=!meaningsOn;$('hover').setAttribute('aria-pressed',meaningsOn);$('hover').textContent=`Hover: ${meaningsOn?'ON':'OFF'}`;hideTip();};
 document.querySelectorAll('[data-size]').forEach(button=>{if(button.tagName!=='BUTTON')return;button.onclick=()=>{editor.dataset.size=button.dataset.size;document.querySelectorAll('button[data-size]').forEach(b=>b.setAttribute('aria-pressed',b===button));};});
 function hideTip(){$('word-tip').hidden=true;}
 function lookup(word){if(dictionary[word])return dictionary[word].join('; ');return Array.from(word).map(c=>dictionary[c]?`${c}: ${dictionary[c].slice(0,2).join('; ')}`:'').filter(Boolean).join(' · ')||'No local dictionary entry for this word.';}
@@ -73,16 +76,16 @@ $('word-tip').addEventListener('pointerleave',hideTip);
 editor.addEventListener('focusin',e=>showTip(e.target.closest('.word')));
 editor.addEventListener('click',e=>showTip(e.target.closest('.word')));
 window.addEventListener('scroll',hideTip);window.addEventListener('resize',hideTip);
-document.addEventListener('selectionchange',()=>{const s=window.getSelection();if(s.rangeCount&&editor.contains(s.anchorNode)&&editor.contains(s.focusNode)){selected=s.toString().trim();$('reading').textContent=selected?`Reading selection · ${Array.from(selected).length} characters`:'Reading entire document';}});
-function setAudio(state){audioState=state;$('play').disabled=state==='playing';$('play-label').textContent=state==='paused'?'Resume':'Play';$('pause').disabled=state!=='playing';$('stop').disabled=state==='idle';}
+document.addEventListener('selectionchange',()=>{const s=window.getSelection();if(s.rangeCount&&editor.contains(s.anchorNode)&&editor.contains(s.focusNode)){selected=s.toString().trim();$('reading').replaceChildren(document.createTextNode('Reading: '),Object.assign(document.createElement('strong'),{textContent:selected?`Selection · ${Array.from(selected).length} characters`:'Entire Document'}));}});
+function setAudio(state){audioState=state;$('play').disabled=state==='playing';$('play-label').textContent=state==='paused'?'Resume Audio':'Play Audio';$('pause').disabled=state!=='playing';$('stop').disabled=state==='idle';}
 $('play').onclick=()=>{flush();if(!('speechSynthesis'in window)){notify('This browser does not support speech playback.');return;}if(audioState==='paused'){speechSynthesis.resume();setAudio('playing');return;}const value=selected||text;if(!value.trim()){notify('Add some text to listen to.');return;}speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(value);utterance.lang='zh-CN';utterance.rate=Number($('speed').value);const voices=speechSynthesis.getVoices();const voice=voices.find(v=>/^zh[-_]CN/i.test(v.lang))||voices.find(v=>/^zh/i.test(v.lang));if(voice)utterance.voice=voice;else notify('Using the browser’s default Mandarin voice. Availability depends on your device.');utterance.onboundary=e=>{$('audio-progress').value=Math.min(1,e.charIndex/Math.max(1,value.length));const s=Math.floor(Number.isFinite(e.elapsedTime)?e.elapsedTime:0);$('audio-elapsed').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;};utterance.onend=()=>{$('audio-progress').value=1;setAudio('idle');};utterance.onerror=e=>{setAudio('idle');if(e.error!=='canceled'&&e.error!=='interrupted')notify('Audio is unavailable. Check that your device has a Mandarin voice installed.');};$('audio-progress').value=0;$('audio-elapsed').textContent='0:00';setAudio('playing');speechSynthesis.speak(utterance);};
 $('pause').onclick=()=>{speechSynthesis.pause();setAudio('paused');};
 $('stop').onclick=()=>{speechSynthesis.cancel();setAudio('idle');$('audio-progress').value=0;$('audio-elapsed').textContent='0:00';};
 window.addEventListener('pagehide',()=>{if('speechSynthesis'in window)speechSynthesis.cancel();});
 function splitTranslation(value){const chunks=[];let part='';for(const char of value){if(new TextEncoder().encode(part+char).length>450){chunks.push(part);part='';}part+=char;}if(part)chunks.push(part);return chunks;}
 $('translate').onclick=async()=>{
-  flush();const output=$('translation-output');if(!text.trim()){notify('Add some text to translate.');return;}if(text.length>3000){notify('Online translation is limited to 3,000 characters per request. Shorten the document first.');return;}
-  const version=translationVersion,value=text;output.hidden=false;$('translation-placeholder').hidden=true;output.textContent='Translating…';$('translate').disabled=true;$('translate').setAttribute('aria-expanded','true');
+  flush();const output=$('translation-output');if(!output.hidden){translationVersion++;output.hidden=true;$('translation-panel').hidden=true;$('translate').textContent='Translate: OFF';$('translate').setAttribute('aria-expanded','false');$('translate').setAttribute('aria-pressed','false');return;}if(!text.trim()){notify('Add some text to translate.');return;}if(text.length>3000){notify('Online translation is limited to 3,000 characters per request. Shorten the document first.');return;}
+  const version=translationVersion,value=text;output.hidden=false;$('translation-panel').hidden=false;$('translate').textContent='Translate: ON';$('translate').setAttribute('aria-pressed','true');$('translation-placeholder').hidden=true;output.textContent='Translating…';$('translate').disabled=true;$('translate').setAttribute('aria-expanded','true');
   try{const translations=[];for(const chunk of splitTranslation(value)){const response=await fetch('https://api.mymemory.translated.net/get?'+new URLSearchParams({q:chunk,langpair:'zh-CN|en'}),{signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('Translation service is unavailable.');const data=await response.json();if(Number(data.responseStatus)!==200||data.quotaFinished)throw Error(data.responseDetails||'Translation quota reached. Please try again later.');translations.push(data.responseData.translatedText);}if(version===translationVersion)output.textContent=translations.join('');}
   catch(error){if(version===translationVersion)output.textContent=`Translation could not finish. ${error.name==='TimeoutError'?'The service timed out. Please try again.':error.message} Your Chinese text is saved.`;}
   finally{$('translate').disabled=!text.trim();}

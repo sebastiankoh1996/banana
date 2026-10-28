@@ -15,10 +15,10 @@ Run `npm test` and `npm run check`. Start locally with `npm start` and open http
 
 ## Product preferences
 
-Preserve the dark charcoal/brass interface, header title, responsive timer beside the header text, and English panel below the editor. The Translate button shares the English heading row and fills its remaining width. Keep the UI concise. Do not reintroduce the removed logo, footer slogan, audio headings, translation explanations, dismiss button, or timer preview overrides.
+Match the user-approved October 28 screenshot: nearly black header and background, navy editor, compact outlined buttons above a full-width editor, text size at the right, audio controls above the editor, and timer beside the title. Header title is Sebastian's Banana Assistant. Hover and Translate are explicit OFF/ON toggles. Keep the tip below the editor. Do not reintroduce the pastel dashboard, sidebar, logo, avatar, cards, audio heading, or permanent English panel.
 
 The timer's schedule is 12pm and 6pm in Asia/Singapore. During the last ten minutes it glows and grows to twice its normal size; at zero it wiggles for ten minutes, then automatically counts down to the next scheduled time. Prefer synchronized internet time; fall back to the PC clock when offline or synchronization fails. Never change the user's system clock.
 
 Browser text stays in local storage. Translation occurs only when the user clicks Translate. Keep private credentials out of browser files and repository commits. The browser fetches TimeAPI UTC directly for GitHub Pages; preserve CORS-compatible clock synchronization and the offline fallback. The Node `/api/time` endpoint is optional for local use and is not deployed by Pages.
 
-The supplied Sebastian wordmark, loading animation, video background, smaller timer, and compact Tools disclosure from the project ZIP are intentional interface updates. Preserve them. Below 1100px, keep Meanings and Tools visible; wider screens show all tools directly. Keep the loading timeout fallback and browser-based TimeAPI synchronization for GitHub Pages.
+Preserve the loading animation and timeout fallback, video background, and browser-based TimeAPI synchronization for GitHub Pages. On mobile, wrap the same compact controls without horizontal scrolling.

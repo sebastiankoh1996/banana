@@ -12,9 +12,8 @@ vm.runInContext(source.slice(source.indexOf('function setAudio('),source.indexOf
 nodes.play.onclick();
 assert.equal(spoken.text,'今天阳光很好');assert.equal(nodes.play.disabled,true);assert.equal(nodes.pause.disabled,false);
 spoken.onboundary({charIndex:3,elapsedTime:4});assert.equal(nodes['audio-progress'].value,.5);assert.equal(nodes['audio-elapsed'].textContent,'0:04');
-nodes.pause.onclick();assert.equal(nodes['play-label'].textContent,'Resume');
+nodes.pause.onclick();assert.equal(nodes['play-label'].textContent,'Resume Audio');
 nodes.play.onclick();assert.equal(nodes.play.disabled,true);
 nodes.stop.onclick();assert.equal(nodes['audio-progress'].value,0);assert.equal(nodes['audio-elapsed'].textContent,'0:00');assert.equal(nodes.stop.disabled,true);
 nodes.play.onclick();spoken.onend();assert.equal(nodes['audio-progress'].value,1);assert.equal(nodes.play.disabled,false);
 console.log('Audio controls, speech progress, pause/resume, stop reset and completion passed.');
-
