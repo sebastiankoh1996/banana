@@ -42,3 +42,7 @@ The public website is https://sebastiankoh1996.github.io/banana/ . GitHub Pages 
 
 
 The interface includes the Sebastian wordmark, an introductory loading animation, a muted looping video background, and a compact Tools menu at widths up to 1100px. New workspaces start blank; saved reading text is retained.
+
+## Read Chinese from an image
+
+Click **Image**, then paste a copied image (Ctrl+V / Command+V), drag an image into the window, or choose a file. Simplified and Traditional Chinese are recognized on your device and appended to the reading box with pinyin. Undo removes the insertion. Recognition needs an internet connection to download Tesseract.js and Chinese language files on first use; images are not uploaded. Clear printed text works best. Close the window to cancel processing.

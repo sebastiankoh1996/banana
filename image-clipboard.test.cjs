@@ -1,0 +1,2 @@
+const assert=require('node:assert/strict');const {chineseImageText}=require('./image-clipboard.js');
+assert.equal(chineseImageText('English heading\n你 好，世界！\n123\n繁 體 中 文。'),'你好，世界！\n繁體中文。');assert.equal(chineseImageText('Hello world 123'),'');assert.equal(chineseImageText('第 2 课：学习中文。'),'第 2 课：学习中文。');console.log('Chinese OCR cleanup preserves Chinese, punctuation and mixed numbers, and skips non-Chinese lines.');
