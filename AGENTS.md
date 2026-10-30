@@ -15,7 +15,7 @@ Run `npm test` and `npm run check`. Start locally with `npm start` and open http
 
 ## Product preferences
 
-Match the user-approved October 28 screenshot: nearly black header and background, navy editor, compact outlined buttons above a full-width editor, text size at the right, audio controls above the editor, and timer beside the title. Header title is Sebastian's Banana Assistant. Hover and Translate are explicit OFF/ON toggles. Keep the tip below the editor. Do not reintroduce the pastel dashboard, sidebar, logo, avatar, cards, audio heading, or permanent English panel.
+Follow the approved October 30 day/night reading workspace in DESIGN.md. Use crisp sans-serif type, neutral gray surfaces, yellow primary actions, visible pinyin/hover/translation switches, and an attached audio footer. Medium reading text stays 28px desktop / 26px mobile. Do not add a Your text heading. Preserve existing behavior, document/theme storage keys, loading animation, timer warnings/alarms, and resources. The desktop rail becomes stacked controls on mobile. Changes are in index.html, workbench.css and theme.js; redesign.css remains the legacy base.
 
 The timer's schedule is 12pm and 6pm in Asia/Singapore. During the last ten minutes it glows and grows to twice its normal size; at zero it wiggles for ten minutes, then automatically counts down to the next scheduled time. Prefer synchronized internet time; fall back to the PC clock when offline or synchronization fails. Never change the user's system clock.
 
