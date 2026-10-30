@@ -38,7 +38,7 @@ function render(offset=null) {
   $('translate').disabled=!text.trim();
   $('translation-placeholder').hidden=!$('translation-output').hidden;
   if(audioState==='idle') $('play').disabled=!text.trim();
-  $('translate').textContent=$('translation-output').hidden?'Translate: OFF':'Translate: ON';
+  $('translate').textContent='Translation';
   $('translate').setAttribute('aria-pressed',String(!$('translation-output').hidden));
   $('translation-panel').hidden=$('translation-output').hidden;
 }
@@ -62,7 +62,7 @@ $('copy').onclick=async()=>{flush();try{await navigator.clipboard.writeText(text
 function undoEdit(){clearTimeout(timer);if(!undo.length)return;text=undo.pop();persist();translationVersion++;$('translation-output').hidden=true;render();notify('Last edit undone.');}
 $('undo').onclick=undoEdit;
 editor.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'&&!event.shiftKey){event.preventDefault();undoEdit();}if(event.key==='Escape')hideTip();});
-$('hover').onclick=()=>{meaningsOn=!meaningsOn;$('hover').setAttribute('aria-pressed',meaningsOn);$('hover').textContent=`Hover: ${meaningsOn?'ON':'OFF'}`;hideTip();};
+$('hover').onclick=()=>{meaningsOn=!meaningsOn;$('hover').setAttribute('aria-pressed',meaningsOn);$('hover').textContent='English on hover';hideTip();};
 document.querySelectorAll('[data-size]').forEach(button=>{if(button.tagName!=='BUTTON')return;button.onclick=()=>{editor.dataset.size=button.dataset.size;document.querySelectorAll('button[data-size]').forEach(b=>b.setAttribute('aria-pressed',b===button));};});
 function hideTip(){$('word-tip').hidden=true;}
 function lookup(word){if(dictionary[word])return dictionary[word].join('; ');return Array.from(word).map(c=>dictionary[c]?`${c}: ${dictionary[c].slice(0,2).join('; ')}`:'').filter(Boolean).join(' · ')||'No local dictionary entry for this word.';}
@@ -84,8 +84,8 @@ $('stop').onclick=()=>{speechSynthesis.cancel();setAudio('idle');$('audio-progre
 window.addEventListener('pagehide',()=>{if('speechSynthesis'in window)speechSynthesis.cancel();});
 function splitTranslation(value){const chunks=[];let part='';for(const char of value){if(new TextEncoder().encode(part+char).length>450){chunks.push(part);part='';}part+=char;}if(part)chunks.push(part);return chunks;}
 $('translate').onclick=async()=>{
-  flush();const output=$('translation-output');if(!output.hidden){translationVersion++;output.hidden=true;$('translation-panel').hidden=true;$('translate').textContent='Translate: OFF';$('translate').setAttribute('aria-expanded','false');$('translate').setAttribute('aria-pressed','false');return;}if(!text.trim()){notify('Add some text to translate.');return;}if(text.length>3000){notify('Online translation is limited to 3,000 characters per request. Shorten the document first.');return;}
-  const version=translationVersion,value=text;output.hidden=false;$('translation-panel').hidden=false;$('translate').textContent='Translate: ON';$('translate').setAttribute('aria-pressed','true');$('translation-placeholder').hidden=true;output.textContent='Translating…';$('translate').disabled=true;$('translate').setAttribute('aria-expanded','true');
+  flush();const output=$('translation-output');if(!output.hidden){translationVersion++;output.hidden=true;$('translation-panel').hidden=true;$('translate').textContent='Translation';$('translate').setAttribute('aria-expanded','false');$('translate').setAttribute('aria-pressed','false');return;}if(!text.trim()){notify('Add some text to translate.');return;}if(text.length>3000){notify('Online translation is limited to 3,000 characters per request. Shorten the document first.');return;}
+  const version=translationVersion,value=text;output.hidden=false;$('translation-panel').hidden=false;$('translate').textContent='Translation';$('translate').setAttribute('aria-pressed','true');$('translation-placeholder').hidden=true;output.textContent='Translating…';$('translate').disabled=true;$('translate').setAttribute('aria-expanded','true');
   try{const translations=[];for(const chunk of splitTranslation(value)){const response=await fetch('https://api.mymemory.translated.net/get?'+new URLSearchParams({q:chunk,langpair:'zh-CN|en'}),{signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('Translation service is unavailable.');const data=await response.json();if(Number(data.responseStatus)!==200||data.quotaFinished)throw Error(data.responseDetails||'Translation quota reached. Please try again later.');translations.push(data.responseData.translatedText);}if(version===translationVersion)output.textContent=translations.join('');}
   catch(error){if(version===translationVersion)output.textContent=`Translation could not finish. ${error.name==='TimeoutError'?'The service timed out. Please try again.':error.message} Your Chinese text is saved.`;}
   finally{$('translate').disabled=!text.trim();}

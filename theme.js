@@ -1,1 +1,3 @@
 (()=>{const b=document.getElementById('night-mode');let n=false;try{n=localStorage.getItem('banana-night-mode')==='true'}catch{}function render(){document.documentElement.dataset.theme=n?'night':'day';b.textContent=n?'Day mode':'Night mode';b.setAttribute('aria-pressed',String(n))}b.onclick=()=>{n=!n;try{localStorage.setItem('banana-night-mode',String(n))}catch{}render()};render()})();
+
+const pinyinToggle=document.getElementById('pinyin-toggle');pinyinToggle.onclick=()=>{const on=pinyinToggle.getAttribute('aria-pressed')!=='true';pinyinToggle.setAttribute('aria-pressed',String(on));document.getElementById('editor').classList.toggle('hide-pinyin',!on);};
