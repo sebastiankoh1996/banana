@@ -15,7 +15,7 @@ Run `npm test` and `npm run check`. Start locally with `npm start` and open http
 
 ## Product preferences
 
-Follow the approved October 30 day/night reading workspace in DESIGN.md. Use crisp sans-serif type, neutral gray surfaces, yellow primary actions, visible pinyin/hover/translation switches, and an attached audio footer. Medium reading text stays 28px desktop / 26px mobile. Do not add a Your text heading. Preserve existing behavior, document/theme storage keys, loading animation, timer warnings/alarms, and resources. The desktop rail becomes stacked controls on mobile. Changes are in index.html, workbench.css and theme.js; redesign.css remains the legacy base.
+Follow the approved November 2 Open canvas design in DESIGN.md: teal day/night colors, borderless reading canvas, top controls on desktop. Mobile puts only Paste Chinese and Tools above the editor; secondary controls move into a closable Tools sheet. Medium stays 28px desktop / 26px mobile. No Your text heading, sidebar or framed editor. Keep the existing document/theme storage keys and reading/OCR/translation/timer behavior. The owner approved deployment of this Open canvas revision on 2 November 2026. Future visual changes still require their own scope and publication authorization.
 
 The timer's schedule is 12pm and 6pm in Asia/Singapore. During the last ten minutes it glows and grows to twice its normal size; at zero it wiggles for ten minutes, then automatically counts down to the next scheduled time. Prefer synchronized internet time; fall back to the PC clock when offline or synchronization fails. Never change the user's system clock.
 

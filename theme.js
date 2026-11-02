@@ -1,7 +1,5 @@
 (() => {
   const button = document.getElementById('night-mode');
-  const sun = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>';
-  const moon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a9 9 0 0 1-11-11 9 9 0 1 0 11 11Z"/></svg>';
   let night = false;
   try { night = localStorage.getItem('banana-night-mode') === 'true'; } catch {}
   function render() {
@@ -9,7 +7,7 @@
     button.setAttribute('aria-pressed', String(night));
     button.setAttribute('aria-label', night ? 'Switch to day mode' : 'Switch to night mode');
     button.title = night ? 'Switch to day mode' : 'Switch to night mode';
-    button.innerHTML = '<span class="mode-icon mode-day">' + sun + '</span><span class="mode-icon mode-night">' + moon + '</span>';
+    button.innerHTML = '<span class="mode-day">Day</span><span class="mode-night">Night</span>';
   }
   button.addEventListener('click', () => {
     night = !night;
@@ -23,4 +21,58 @@
     pinyinToggle.setAttribute('aria-pressed', String(on));
     document.getElementById('editor').classList.toggle('hide-pinyin', !on);
   };
+
+  // Move the existing controls, not copies, so their handlers and state survive resizing.
+  const sheet = document.getElementById('tools-dialog');
+  const opener = document.getElementById('tools-open');
+  const mobile = window.matchMedia('(max-width: 700px)');
+  const items = Array.from(document.querySelectorAll('[data-tools-item]')).map(element => {
+    const anchor = document.createComment('tools home');
+    element.before(anchor);
+    return {element, anchor};
+  }).sort((a, b) => Number(a.element.classList.contains('appearance')) - Number(b.element.classList.contains('appearance')));
+  function closeTools() {
+    if (sheet.open) sheet.close();
+    opener.setAttribute('aria-expanded', 'false');
+  }
+  function placeControls() {
+    const focused = document.activeElement;
+    const focusWasInSheet = sheet.contains(focused);
+    if (!mobile.matches) closeTools();
+    for (const {element, anchor} of items) {
+      if (mobile.matches) {
+        document.getElementById('tools-' + element.dataset.toolsItem).append(element);
+      } else {
+        anchor.after(element);
+      }
+    }
+    if (!mobile.matches && (focused === opener || focusWasInSheet)) {
+      document.getElementById('paste').focus({preventScroll: true});
+    }
+  }
+  opener.addEventListener('click', () => {
+    if (!mobile.matches || sheet.open) return;
+    sheet.showModal();
+    opener.setAttribute('aria-expanded', 'true');
+  });
+  document.getElementById('tools-close').addEventListener('click', closeTools);
+  sheet.addEventListener('close', () => {
+    // Ignore a delayed close event if the sheet has already been opened again.
+    if (sheet.open) return;
+    opener.setAttribute('aria-expanded', 'false');
+    if (!document.getElementById('image-dialog').open) {
+      (mobile.matches ? opener : document.getElementById('paste')).focus({preventScroll: true});
+    }
+  });
+  // Close Tools before the existing OCR dialog handler opens its modal.
+  document.getElementById('image').addEventListener('click', closeTools, {capture: true});
+  document.getElementById('translate').addEventListener('click', closeTools, {capture: true});
+  document.getElementById('image-dialog').addEventListener('close', () => {
+    // Import's original button is in the closed sheet on mobile.
+    if (mobile.matches && document.activeElement !== document.getElementById('editor')) {
+      opener.focus({preventScroll: true});
+    }
+  });
+  mobile.addEventListener('change', placeControls);
+  placeControls();
 })();

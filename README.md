@@ -14,7 +14,7 @@ Then open http://127.0.0.1:4173/ . No package installation or build is required.
 
 ## Files
 
-- `index.html`, `style.css`, `app.js`: editable application source.
+- `index.html`, `redesign.css`, `workbench.css`, `theme.js`, `app.js`: editable application source.
 - `pinyin-pro.js`: bundled pinyin library (MIT).
 - `dictionary.json`: generated CC-CEDICT English lookup data (CC BY-SA 4.0).
 - `prepare-dictionary.cjs`, `cedict.txt.gz`: dictionary regeneration and source.
@@ -41,7 +41,7 @@ The public website is https://sebastiankoh1996.github.io/banana/ . GitHub Pages 
 
 
 
-The interface includes the Sebastian wordmark, an introductory loading animation, a muted looping video background, and a compact Tools menu at widths up to 1100px. New workspaces start blank; saved reading text is retained.
+The Open canvas interface uses top controls on desktop and a paste-first mobile layout at widths up to 700px. Mobile secondary actions, switches, sizes, and appearance live in the Tools sheet. A single editor and the original control nodes preserve content and state across resizing. The introductory loading animation remains; background media are retained but visually hidden. New workspaces start blank; saved reading text and day/night preference use their existing browser storage keys. The owner approved publication of this November 2 revision.
 
 ## Read Chinese from an image
 
