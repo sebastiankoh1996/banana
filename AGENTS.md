@@ -23,7 +23,7 @@ Browser text stays in local storage. Translation occurs only when the user click
 
 Preserve the loading animation and timeout fallback and browser-based TimeAPI synchronization for GitHub Pages. On mobile, wrap the same compact controls without horizontal scrolling.
 
-Background video playback was removed at the owner’s request on November 3. Do not reintroduce it.
+Timer-linked background playback was removed. The owner subsequently requested the supplied 354071.mov as a muted looping ambient background, locally only until separately approved.
 
 Current workflow (November 3): make and review changes locally first. Do not push or publish further changes without new explicit approval.
 

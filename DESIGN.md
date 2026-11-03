@@ -24,3 +24,6 @@ November 3 local warning visibility correction: final10-minute badge uses bright
 
 
 November 3 approved luxury reference redesign: framed rounded workspace, graphite/ivory day and night surfaces, blue ambient background gradient, champagne metallic controls, static white Sebastian wordmark with aligned subtitle, integrated audio footer, helper sentence removed, and timer contents enlarged 10%. Existing reading sizes and application logic/storage are preserved. Owner authorized publication of this revision.
+
+
+November 3: owner approved publishing the supplied ambient video as a muted, autoplaying, continuously looping full-viewport background, with no playback controls. The reading panel remains opaque for readability; the gradient is the loading/playback-failure fallback. This background has no timer linkage.
