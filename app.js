@@ -92,6 +92,10 @@ $('translate').onclick=async()=>{
   finally{$('translate').disabled=!text.trim();}
 };
 let previousTimerPhase='';
+// Local-only accelerated preview: 3 minutes in 6 seconds, then 10 minutes in 20 seconds.
+const videoTest=['localhost','127.0.0.1'].includes(location.hostname)&&new URL(location.href).searchParams.get('timer-video-test')==='1';
+const videoTestStarted=performance.now();
+const videoTestTarget=BananaTimer.scheduleAt(Date.now()).target;
 const accurateClock=BananaClock.createClock();
 let clockRequest=null,clockGeneration=0;
 function syncClock(){
@@ -115,7 +119,10 @@ if(timerUrl.searchParams.has('timer-preview')||timerUrl.searchParams.has('timer-
 }
 function tick(){
   const clock=accurateClock.read();
-  const state=BananaTimer.scheduleAt(clock.now),badge=$('countdown');
+  const displayNow=videoTest?videoTestTarget-180000+(performance.now()-videoTestStarted)*30:clock.now;
+    const state=BananaTimer.scheduleAt(displayNow),badge=$('countdown');
+    document.documentElement.style.setProperty('--timer-video-opacity',BananaTimer.videoOpacityAt(displayNow,state.target));
+    document.documentElement.dataset.timerGlass=String(displayNow>=state.target-180000&&displayNow<state.alarmUntil);
   badge.dataset.phase=state.phase;
   badge.title=clock.source==='internet'?`Internet UTC time, estimated network uncertainty ±${Math.ceil(clock.uncertaintyMs)} ms`:'Using the PC clock';
   badge.style.setProperty('--timer-scale',state.scale.toFixed(5));

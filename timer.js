@@ -16,5 +16,9 @@
     const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60),secs=seconds%60;
     return {phase,scale,seconds,text:`${hours?hours+':':''}${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`};
   }
-  return {scheduleAt,stateAt,ALARM_DURATION};
+  function videoOpacityAt(now,target){
+    const elapsed=now-target;
+    return elapsed<0?Math.max(0,1+elapsed/180000):Math.max(0,1-elapsed/ALARM_DURATION);
+  }
+  return {scheduleAt,stateAt,videoOpacityAt,ALARM_DURATION};
 });

@@ -20,3 +20,8 @@ assert.equal(scheduleAt(instant('18:10:00')).target,Date.parse('2026-10-15T12:00
 assert.equal(scheduleAt(instant('13:00:00')).label,'6pm');
 assert.equal(scheduleAt(instant('18:05:00')).phase,'alarm');
 console.log('Noon/6pm schedule, ten-minute alarms, automatic reset and next-day rollover passed.');
+
+const {videoOpacityAt}=require('./timer.js');
+for(const [offset,opacity] of [[-180001,0],[-180000,0],[-90000,.5],[0,1],[300000,.5],[600000,0],[600001,0]])assert.equal(videoOpacityAt(target+offset,target),opacity);
+assert.equal(videoOpacityAt(instant('12:10:00'),scheduleAt(instant('12:10:00')).target),0);
+console.log('Background opacity: three-minute fade in, ten-minute fade out and schedule reset passed.');

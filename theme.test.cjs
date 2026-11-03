@@ -43,5 +43,5 @@ const baseline=cp.execFileSync('git',['show','HEAD:index.html'],{encoding:'utf8'
 for(const [,id] of baseline.matchAll(/\bid="([^"]+)"/g)){if(['page-background-video','image-format','image-insert'].includes(id))continue; // Background playback was explicitly removed.
 assert.equal([...current.matchAll(new RegExp('\\bid="'+id+'"','g'))].length,1,'preserve unique behavior hook '+id);}
 assert.equal((current.match(/id="editor"/g)||[]).length,1);
-assert.doesNotMatch(current, /timer-video/i, 'retired timer-linked playback stays removed');
+assert.match(current, /id="timer-video"[^>]*autoplay muted loop playsinline/, 'timer background loops silently without controls');
 console.log('Tools: stable nodes, responsive state, modal focus, OCR handoff, translation once, close/reopen race and saved-text preservation passed. Existing HTML IDs retained uniquely.');

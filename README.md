@@ -52,3 +52,7 @@ The public page uses https://banana-ocr-sebastian.sbstko.chatgpt.site/api/ocr . 
 ## Local online OCR
 
 Copy .env.example to .env and put your free OCR.space key there; restart the local server. Never commit .env. The public site uses its hosted backend instead of the local server. The free plan lists 25,000 requests/month, 500/day/IP and 1 MB/file (checked November 3, 2026). The supplied durian image was tested successfully. Hosted quota is shared by visitors.
+
+## Timer background and glass panel
+
+The normal looping video stays beneath a subtly translucent panel. During the final three minutes before noon or 6pm Singapore time, timer-background.mp4 fades from 0 to 100 percent opacity; over the ten-minute alarm it fades back to zero. The panel uses stronger glass transparency during that interval. Both videos loop silently without controls. The accelerated preview query timer-video-test=1 runs only on localhost and does not change the real clock.

@@ -178,3 +178,21 @@ html{background:radial-gradient(ellipse at 50% 0%,#365d83,#080d14 75%)}
 #play[data-state=playing] svg,#play[data-state=paused] svg,#pause[data-state=paused] svg{animation:banana-feedback 220ms ease-out}
 #play svg,#pause svg{transition:opacity 180ms ease,transform 180ms ease}
 @media(prefers-reduced-motion:reduce){#copy svg,.audio-buttons button,#play svg,#pause svg{transition:none}#copy[data-copied=true]::after,#image-dialog[open],#tools-dialog[open],#image-dialog::backdrop,#tools-dialog::backdrop,#word-tip,#image-result,#image-status::before,#play svg,#pause svg{animation:none!important}}
+
+.timer-video{opacity:var(--timer-video-opacity,0);filter:none;transition:opacity 1s linear}
+
+/* Reveal the timer video through the panel without dimming its contents. */
+.app,.canvas-header,.workspace.canvas-document,.audio-bar.audio-dock{transition:background-color 1.5s ease,backdrop-filter 1.5s ease}
+:root[data-timer-glass=true] .app{background:rgba(248,245,237,.28);backdrop-filter:blur(5px) saturate(125%);-webkit-backdrop-filter:blur(5px) saturate(125%);box-shadow:0 24px 64px #0003,inset 0 1px #ffffff70;border-color:#ffffff70}
+:root[data-theme=night][data-timer-glass=true] .app{background:rgba(17,21,27,.3);border-color:#ffffff50}
+:root[data-timer-glass=true] .canvas-header,:root[data-timer-glass=true] .workspace.canvas-document,:root[data-timer-glass=true] .audio-bar.audio-dock{background:transparent}
+:root[data-timer-glass=true] .editor,:root[data-timer-glass=true] .header-inner{ text-shadow:0 1px 5px #ffffff65 }
+:root[data-theme=night][data-timer-glass=true] .editor,:root[data-theme=night][data-timer-glass=true] .header-inner{text-shadow:0 1px 5px #0009}
+@media(prefers-reduced-motion:reduce){.app,.canvas-header,.workspace.canvas-document,.audio-bar.audio-dock{transition:none}}
+
+/* Subtle everyday glass; the timer's stronger transparency takes precedence. */
+:root:not([data-timer-glass=true]) .app{background:rgba(244,240,231,.88);backdrop-filter:blur(12px) saturate(115%);-webkit-backdrop-filter:blur(12px) saturate(115%)}
+:root[data-theme=night]:not([data-timer-glass=true]) .app{background:rgba(20,23,28,.86)}
+:root:not([data-timer-glass=true]) .canvas-header{background:transparent}
+:root:not([data-timer-glass=true]) .workspace.canvas-document{background:rgba(255,250,243,.62)}
+:root[data-theme=night]:not([data-timer-glass=true]) .workspace.canvas-document{background:rgba(15,19,25,.55)}

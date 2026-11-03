@@ -1,6 +1,6 @@
 'use strict';
-(()=>{const video=document.getElementById('ambient-video');
-video.muted=true;
-video.addEventListener('error',()=>{video.hidden=true;});
-video.play().catch(()=>{ /* Keep the gradient if autoplay is unavailable. */ });
-})();
+for(const id of ['ambient-video','timer-video']){
+ const video=document.getElementById(id);if(!video)continue;
+ video.muted=true;video.addEventListener('error',()=>{video.hidden=true;});
+ video.play().catch(()=>{ /* Keep the underlying background if autoplay is unavailable. */ });
+}
