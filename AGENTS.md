@@ -28,3 +28,5 @@ Background video playback was removed at the owner’s request on November 3. Do
 Current workflow (November 3): make and review changes locally first. Do not push or publish further changes without new explicit approval.
 
 The owner explicitly approved publishing the current November 3 changes. Further changes still require separate publication approval.
+
+Current approved appearance supersedes teal: reference-matched graphite night / warm ivory day, blue ambient gradient, rounded outer frame and champagne controls. Keep the static supplied white wordmark (dark in day mode), 10% enlarged timer and no selection helper sentence. Owner approved publishing this revision.

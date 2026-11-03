@@ -21,3 +21,6 @@ November 3 local timer refinement: during the final ten minutes, the badge uses 
 November 3: background video playback was removed at the owner’s request. Timer warning and alarm effects remain.
 
 November 3 local warning visibility correction: final10-minute badge uses bright red (#C81020–#E31627) pulsing every1.2seconds, persistent white bold timer text, and a stronger red halo. Do not fade the timer text. The existing zero-time alarm styling/schedule and reduced-motion behavior remain. Not published.
+
+
+November 3 approved luxury reference redesign: framed rounded workspace, graphite/ivory day and night surfaces, blue ambient background gradient, champagne metallic controls, static white Sebastian wordmark with aligned subtitle, integrated audio footer, helper sentence removed, and timer contents enlarged 10%. Existing reading sizes and application logic/storage are preserved. Owner authorized publication of this revision.

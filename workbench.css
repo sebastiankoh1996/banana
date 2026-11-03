@@ -1,6 +1,6 @@
 /* Banana · Open canvas · approved desktop and paste-first mobile */
 :root{color-scheme:light;--paper:#f8f7f3;--surface:#fff;--ink:#18282f;--muted:#52636b;--line:#c8d1cf;--button:transparent;--accent:#006b65;--accent-ink:#fff;--highlight:#c8e7e0;--focus:#164eb5;--hover:#e8ede8;--switch:#7a898d;--knob:#fff;--shadow:#132c3026;--font-ui:'Segoe UI',Arial,Helvetica,sans-serif}
-:root[data-theme=night]{color-scheme:dark;--paper:#111b22;--surface:#182830;--ink:#eff4f4;--muted:#b3c4cc;--line:#42535d;--accent:#77d9ca;--accent-ink:#102923;--highlight:#284d48;--focus:#b4ccff;--hover:#243b43;--switch:#71838b;--shadow:#0006}
+:root[data-theme=night]{color-scheme:dark;--paper:#111317;--surface:#1b1e23;--ink:#f4f0e8;--muted:#b8b6b0;--line:#45464a;--accent:#d8c49e;--accent-ink:#211e18;--highlight:#45413a;--focus:#ead8b6;--hover:#ffffff0d;--switch:#64656a;--shadow:#0007}
 html,body{overflow-x:clip;scrollbar-color:var(--switch) var(--paper)}body{background:var(--paper);color:var(--ink);font:14px/1.5 var(--font-ui)}.app{background:var(--paper);min-height:100svh}button,input,select,textarea{font-family:var(--font-ui);font-style:normal}button{height:40px;padding:0 14px;border:1px solid var(--line);border-radius:4px;font:500 14px var(--font-ui);background:var(--button);color:var(--ink);gap:8px}button svg{width:18px;height:18px;flex-shrink:0}button:hover{background:var(--hover)}button:active:not(:disabled){filter:brightness(.94)}button:disabled,#undo:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.editor:focus-visible,.word:focus-visible{outline:2px solid var(--focus);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}
 .canvas-header{background:var(--paper);border:0}.header-inner{display:flex;align-items:center;gap:24px;width:100%;max-width:1248px;margin:0 auto;min-height:88px;padding:12px 32px}.header-inner>.identity{display:flex;align-items:center;gap:16px;margin-right:auto;transform:none;min-width:0}h1{display:flex;align-items:center;gap:8px;margin:0;font:650 20px/1.3 var(--font-ui);letter-spacing:-.3px}.brand-logo{display:block;width:140px;height:44px;object-fit:cover;object-position:center;border-radius:4px;flex-shrink:0}header p{margin:0;font:13px/1.5 var(--font-ui);color:var(--muted)}h2{font:650 18px/1.4 var(--font-ui);letter-spacing:0}.timer-wrap{height:64px;width:300px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end}.countdown{transform-origin:right center}.timer-face{gap:6px;padding:6px 4px;border:0;background:transparent;color:var(--muted);font:13px var(--font-ui)}.timer-face svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;flex-shrink:0}#clock{font:500 13px var(--font-ui);font-variant-numeric:tabular-nums;color:var(--ink)}.appearance{display:flex;align-items:center;justify-content:space-between;gap:16px}.appearance-label{display:none}#night-mode{height:34px;padding:0;gap:0;overflow:hidden;background:transparent;flex-shrink:0}#night-mode span{display:flex;align-items:center;justify-content:center;min-width:50px;height:100%;padding:0 10px;font-size:12px;color:var(--muted)}#night-mode[aria-pressed=false] .mode-day,#night-mode[aria-pressed=true] .mode-night{background:var(--accent);color:var(--accent-ink)}
 main.canvas-shell{display:block;width:calc(100% - 64px);max-width:1080px;min-height:0;margin:0 auto;padding:0 0 32px}.toolbar{display:block;min-height:0;margin:0;padding:0;background:transparent;border:0}.canvas-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0 20px;border-bottom:1px solid var(--line)}.actions,.document-actions{display:flex;align-items:center;gap:10px;flex-direction:row;flex-wrap:wrap}.actions #paste,.audio-buttons #play{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}.document-actions button{border-color:transparent;background:transparent}.document-actions button:hover{background:var(--hover)}#tools-open{display:none}.canvas-preferences{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px 24px;padding:12px 0}.canvas-preferences>button,.tool-switches>button{position:relative;display:flex;align-items:center;justify-content:flex-start;height:44px;padding:0 44px 0 0;border:0;border-radius:3px;background:transparent!important;font-size:13px;font-weight:400;white-space:nowrap;color:var(--ink)}.canvas-preferences>button:before,.tool-switches>button:before{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:34px;height:20px;border-radius:12px;background:var(--switch)}.canvas-preferences>button:after,.tool-switches>button:after{content:'';position:absolute;right:16px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--knob)}.canvas-preferences>button[aria-pressed=true]:before,.tool-switches>button[aria-pressed=true]:before{background:var(--accent)}.canvas-preferences>button[aria-pressed=true]:after,.tool-switches>button[aria-pressed=true]:after{right:2px;background:var(--accent-ink)}.sizes{display:flex;align-items:center;gap:0;margin:0 0 0 auto;padding:0;border:0}.sizes>span{margin-right:12px;font-size:12px;color:var(--muted)}.sizes button{height:30px;font-size:12px;padding:0 12px;border-radius:0;background:transparent}.sizes button+button{border-left:0}.sizes button:first-of-type{border-radius:3px 0 0 3px}.sizes button:last-child{border-radius:0 3px 3px 0}.sizes button[aria-pressed=true]{background:var(--highlight);color:var(--ink);border-color:var(--line)}
@@ -24,3 +24,97 @@ main.canvas-shell{display:block;width:calc(100% - 64px);max-width:1080px;min-hei
 /* Pulse the bright badge and halo; the white text never fades. */
 @keyframes timer-warning-pulse{0%,100%{background-color:#c81020}50%{background-color:#e31627}}
 .countdown[data-phase=warning] #clock{font-weight:700}.countdown[data-phase=warning] #clock-label{font-weight:600}
+
+/* Supplied square wordmark: frame the artwork without changing the source image. */
+.identity h1{position:relative;width:140px;height:44px;overflow:hidden;flex-shrink:0}
+.identity .brand-logo{position:absolute;width:175px;height:175px;max-width:none;left:-17px;top:-63px;object-fit:contain;border-radius:0}
+@media(max-width:700px){.identity h1{width:112px;height:38px}.identity .brand-logo{width:140px;height:140px;left:-14px;top:-49px}}
+
+/* Match the subtitle weight to the Sebastian wordmark. */
+.identity p{font-weight:700}
+
+
+/* Align visible wordmark artwork and subtitle on the same center line. */
+.identity .brand-logo{top:-65px}
+.identity p{font-size:20px;line-height:1.2}
+@media(max-width:700px){.identity .brand-logo{top:-51px}}
+
+
+.identity .brand-logo{top:-71px}
+@media(max-width:700px){.identity .brand-logo{top:-56px}}
+
+
+/* Local bespoke reading workspace: graphite, satin metal and warm ivory. */
+:root{--paper:#eeeae2;--surface:#faf8f3;--ink:#24262a;--muted:#61605c;--line:#c9c2b5;--accent:#393b3e;--accent-ink:#faf5e9;--highlight:#e3d9c6;--focus:#82622f;--hover:#22222208}
+.app{background:radial-gradient(ellipse at 80% 0%,#fff9edaa,transparent 60%),var(--paper)}
+:root[data-theme=night] .app{background:radial-gradient(ellipse at 85% 0%,#26334755,transparent 55%),linear-gradient(155deg,#181a1e,#101114 80%)}
+.canvas-header{background:transparent}.header-inner{min-height:104px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.identity{gap:18px!important}.identity p{letter-spacing:.01em}
+:root:not([data-theme=night]) .identity .brand-logo{filter:brightness(0)}
+.timer-face{letter-spacing:.025em}#clock{font-variant-numeric:tabular-nums}
+button{border-radius:3px;transition:background .16s ease,border-color .16s ease,box-shadow .16s ease}
+button:hover:not(:disabled){border-color:var(--muted)}
+.actions #paste,.audio-buttons #play{background:linear-gradient(135deg,#e8d8b9,#cbb58b);color:#211e18;border-color:#d6c19b;box-shadow:inset 0 1px #fff7,0 2px 8px #0002}
+.canvas-actions{padding-top:0;padding-bottom:20px}.canvas-preferences{padding:14px 0 18px}
+.sizes button{border-color:var(--line)}
+.workspace.canvas-document{background:var(--surface);border:1px solid var(--line);border-radius:5px;box-shadow:0 16px 50px #17171708;overflow:visible}
+:root[data-theme=night] .workspace.canvas-document{background:linear-gradient(145deg,#202329,#191b20);border-color:#4d4d4c;box-shadow:0 16px 48px #0003,inset 0 1px #ffffff05}
+.editor{padding:28px 26px 36px;min-height:360px}#empty-state{top:28px;left:26px;right:26px}
+.audio-bar.audio-dock{margin-top:28px;padding:12px 14px;background:var(--surface);border-color:var(--line);border-radius:4px;box-shadow:0 8px 26px #00000008}
+:root[data-theme=night] .audio-bar.audio-dock{background:#1c1f24}
+.tip{color:var(--muted);font-size:12px;letter-spacing:.015em}
+#night-mode{border-color:var(--line)}
+#tools-close{color:var(--ink)}
+@media(max-width:1000px) and (min-width:701px){.identity p{display:none}}
+@media(max-width:700px){.header-inner{min-height:76px;margin-bottom:14px;padding:12px 16px}.identity{gap:0!important}.canvas-actions{padding-bottom:14px}.workspace.canvas-document{margin-top:14px}.editor{padding:22px 18px 28px;min-height:calc(100svh - 290px)}#empty-state{top:22px;left:18px;right:18px}.audio-bar.audio-dock{padding:12px;margin-top:18px;border:1px solid var(--line);border-radius:4px}.tip{padding:0 2px}}
+
+/* Rounded contours from the approved visual direction. */
+button{border-radius:12px}
+#night-mode{border-radius:12px}
+.sizes{border-radius:10px;overflow:hidden}
+.sizes button{border-radius:0}
+.sizes button:first-of-type{border-radius:10px 0 0 10px}
+.sizes button:last-of-type{border-radius:0 10px 10px 0}
+.workspace.canvas-document{border-radius:14px}
+.audio-bar.audio-dock{border-radius:14px}
+.audio-buttons button{border-radius:10px}
+#image-dialog,.word-tip{border-radius:14px}
+.tool-actions>button{border-radius:12px}
+@media(max-width:700px){.workspace.canvas-document,.audio-bar.audio-dock{border-radius:14px}}
+
+/* Reference composition: framed instrument, satin controls and ambient blue. */
+body{padding:48px 24px;background:radial-gradient(ellipse at 50% 0%,#365d83 0%,#13283d 23%,transparent 58%),radial-gradient(ellipse at 50% 100%,#274e73 0%,#0b1929 40%,#080d14 75%);background-attachment:fixed}
+.app{width:100%;max-width:1280px;margin:0 auto;min-height:0;border:1px solid #b7b2a580;border-radius:22px;overflow:hidden;box-shadow:0 24px 64px #0008,inset 0 1px #ffffff30;background:linear-gradient(130deg,#faf7f0,#e9e4da)}
+:root[data-theme=night] .app{background:radial-gradient(ellipse at 55% 0%,#ffffff09,transparent 50%),linear-gradient(125deg,#24262a 0%,#15171b 42%,#10141a 100%)}
+.header-inner{max-width:none;padding:20px 28px;min-height:88px;margin:0;border-bottom:1px solid var(--line);gap:20px}
+.header-inner>.identity{gap:20px!important}.identity p{font-size:20px;font-weight:400;letter-spacing:0;padding-left:20px;border-left:1px solid var(--line)}
+.timer-wrap{width:auto;margin-left:auto}.timer-face{font-size:14px}#clock{font-size:14px}
+main.canvas-shell{width:100%;max-width:none;padding:0 20px 20px;margin:0}
+.canvas-actions{padding:18px 4px;border-bottom:1px solid var(--line)}
+button{height:44px;font-size:15px;border-radius:10px;background:linear-gradient(180deg,#ffffff12,#ffffff02);box-shadow:inset 0 1px #ffffff12}
+.document-actions button{border:1px solid var(--line);background:linear-gradient(180deg,#ffffff12,#ffffff02);padding:0 20px}
+.actions #paste{min-width:180px}.actions{gap:18px}
+.actions #paste,.audio-buttons #play,#night-mode[aria-pressed=true] .mode-night,.sizes button[aria-pressed=true]{background:linear-gradient(145deg,#f0dfc2 0%,#d7c3a1 48%,#b69e78 100%);color:#191714;border-color:#efdfbf;box-shadow:inset 0 1px #fff9,0 2px 12px #dbc59d20}
+.canvas-preferences{padding:16px 12px;gap:12px 30px}.canvas-preferences>button{font-size:14px;padding-right:58px}
+.canvas-preferences>button:before{width:46px;height:25px;border:1px solid #ffffff36;background:linear-gradient(#55565a,#252629)}
+.canvas-preferences>button:after{width:20px;height:20px;right:23px;background:linear-gradient(#fff8e8,#b9b5ab);box-shadow:0 1px 4px #0008}
+.canvas-preferences>button[aria-pressed=true]:after{right:3px}
+.canvas-preferences>button[aria-pressed=true]:before{background:linear-gradient(135deg,#e7d4af,#af9570)}
+.sizes{margin-left:auto;gap:0}.sizes>span{margin-right:16px}.sizes button{font-size:14px;height:34px;padding:0 18px}.sizes button[aria-pressed=true]{border-radius:9px}
+.workspace.canvas-document{margin:4px 0 0;max-width:none;border-radius:13px;border-color:#96948d;background:linear-gradient(135deg,#fffaf3,#f1eee7);box-shadow:inset 0 1px #ffffff12}
+:root[data-theme=night] .workspace.canvas-document{background:linear-gradient(140deg,#1b1d20,#10141a);border-color:#807e79;box-shadow:inset 0 1px #ffffff0a}
+.editor,.editor[data-empty=true]{min-height:440px;padding:28px 30px 36px}#empty-state{top:28px;left:30px;right:30px}
+.audio-bar.audio-dock{max-width:none;margin:20px -20px 0;padding:20px 28px 10px;border:0;border-top:1px solid var(--line);border-radius:0;background:linear-gradient(180deg,#ffffff06,transparent);box-shadow:none;justify-content:center;gap:28px}
+:root[data-theme=night] .audio-bar.audio-dock{background:linear-gradient(180deg,#ffffff06,transparent)}
+.audio-buttons{gap:14px}.audio-buttons button{height:44px;padding:0 20px;font-size:15px;border:1px solid var(--line);background:linear-gradient(180deg,#ffffff16,#ffffff03)}
+.audio-buttons #play{min-width:155px}#reading{font-size:14px;padding-left:28px;border-left:1px solid var(--line)}#reading strong{display:inline-block;margin-left:8px;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--ink)}
+.tip{max-width:none;text-align:center;margin:2px 0 0;font-size:12px}
+@media(max-width:1100px) and (min-width:701px){.identity p{display:none}.canvas-preferences{gap:8px 20px}.sizes{margin-left:0}}
+@media(max-width:700px){body{padding:16px 10px}.app{border-radius:20px}.header-inner{padding:14px 16px;min-height:72px;gap:8px}.header-inner>.identity{gap:0!important}.identity p{display:none}.timer-wrap{height:38px}.timer-face,#clock{font-size:11px}.timer-face svg{display:none}main.canvas-shell{width:100%;padding:0 12px 18px}.canvas-actions{padding:14px 4px;gap:10px}.actions #paste{min-width:0;height:44px;padding:0 16px}.actions{gap:0}#tools-open{border:1px solid var(--line);padding:0 14px;height:44px;background:linear-gradient(#ffffff12,#ffffff03)}.workspace.canvas-document{margin-top:14px;border-radius:12px}.editor,.editor[data-empty=true],.editor[data-size=medium]{min-height:420px;padding:22px 20px 30px}#empty-state{top:22px;left:20px;right:20px}.audio-bar.audio-dock{margin:16px 0 0;padding:4px 0 8px;border:0;gap:16px}.audio-buttons{justify-content:center;flex-wrap:nowrap;gap:8px}.audio-buttons button{padding:0 10px;font-size:12px}.audio-buttons #play{min-width:120px}#reading{border:0;padding:0;width:100%;text-align:center;font-size:13px}.tip{font-size:11px;margin-top:6px}}
+
+.canvas-preferences>button[aria-pressed=true]:after{background:linear-gradient(#fff5df,#cfb68d);box-shadow:0 1px 4px #0007}
+.canvas-preferences>button,.sizes button{font-weight:400}
+
+
+/* Increase timer contents by 10%, preserving countdown warning scaling. */
+.timer-face{zoom:1.1}
