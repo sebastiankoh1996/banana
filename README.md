@@ -41,7 +41,7 @@ The public website is https://sebastiankoh1996.github.io/banana/ . GitHub Pages 
 
 
 
-The Open canvas interface uses top controls on desktop and a paste-first mobile layout at widths up to 700px. Mobile secondary actions, switches, sizes, and appearance live in the Tools sheet. A single editor and the original control nodes preserve content and state across resizing. The introductory loading animation remains; background media are retained but visually hidden. New workspaces start blank; saved reading text and day/night preference use their existing browser storage keys. The owner approved publication of this November 2 revision.
+The Open canvas interface uses top controls on desktop and a paste-first mobile layout at widths up to 700px. Mobile secondary actions, switches, sizes, and appearance live in the Tools sheet. A single editor and the original control nodes preserve content and state across resizing. The introductory loading animation remains; background video playback has been removed, with media assets retained unused. New workspaces start blank; saved reading text and day/night preference use their existing browser storage keys. The owner approved publication of this November 2 revision.
 
 ## Read Chinese from an image
 

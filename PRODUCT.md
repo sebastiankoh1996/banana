@@ -176,3 +176,17 @@ The day/night visual revamp changes index.html, workbench.css and theme.js prese
 ## Open canvas local implementation — 2 November 2026
 
 Supersedes the earlier UI arrangement only: the desktop rail/card become top controls and an open passage, with a separate audio dock. On mobile (<=700px), only Paste Chinese and Tools precede the editor. Tools contains the existing secondary actions/preferences and a Close action. It closes before OCR or Translation, supports Escape/focus return, preserves the editor focus after OCR insertion, and restores the same control nodes when resizing to desktop. Existing storage keys, function logic, reading sizes and integrations remain unchanged. No demo text is shipped. The owner authorized publication of this revision on 2 November 2026.
+
+
+## Local reading-box refinement — 3 November 2026
+
+The owner requested a wider text box aligned to the toolbar rule, a thin outline, and the former Small size as the new Medium. Local presentation now uses full available toolbar width, a 1px themed outline, inset padding, and Small19px / Medium23px / Large28px for desktop and mobile. This supersedes earlier UI sizing notes only. Existing functions and storage are unchanged. Changes are not published.
+
+Local timer appearance update, 3 November 2026: final-ten-minute warning uses a pulsing red glow; noon/6pm alarm uses a steady red glow with the existing wiggle. Schedule, growth, alarm duration, synchronization and fallback rules are unchanged. Reduced-motion behavior remains. Not published.
+
+
+## Background video removal — 3 November 2026
+
+Removed timer-triggered YouTube playback, its fade layer and retry control, and the older hidden autoplay background video. Background media assets remain unused. Timer schedule, red warning/alarm effects, loading animation and saved user data are unchanged. This change is local only.
+
+Publication approved by the owner on 3 November 2026 for the reading-box refinements, smaller text sizes, Sebastian header logo, red timer effects, and removal of background video playback.

@@ -40,6 +40,8 @@ let translations=0;elements.translate.onclick=()=>translations++;elements.transl
 elements['tools-open'].click();elements['night-mode'].focus();setMobile(false);assert.equal(elements['tools-dialog'].open,false);assert.equal(elements.image.parent,actions);assert.equal(elements.appearance.parent,header);assert.equal(focused,elements.paste);assert.equal(elements.editor.parent,null);
 for(let i=0;i<4;i++){setMobile(true);setMobile(false);}assert.equal(actions.children.filter(x=>x===elements.image).length,1);assert.equal(storage.get('banana.text'),'原来的文字');
 const baseline=cp.execFileSync('git',['show','HEAD:index.html'],{encoding:'utf8'});const current=fs.readFileSync('index.html','utf8');
-for(const [,id] of baseline.matchAll(/\bid="([^"]+)"/g)){assert.equal([...current.matchAll(new RegExp('\\bid="'+id+'"','g'))].length,1,'preserve unique behavior hook '+id);}
+for(const [,id] of baseline.matchAll(/\bid="([^"]+)"/g)){if(id==='page-background-video')continue; // Background playback was explicitly removed.
+assert.equal([...current.matchAll(new RegExp('\\bid="'+id+'"','g'))].length,1,'preserve unique behavior hook '+id);}
 assert.equal((current.match(/id="editor"/g)||[]).length,1);
+assert.doesNotMatch(current, /<video\b|timer-video/i, 'background video playback is removed');
 console.log('Tools: stable nodes, responsive state, modal focus, OCR handoff, translation once, close/reopen race and saved-text preservation passed. Existing HTML IDs retained uniquely.');
