@@ -43,6 +43,12 @@ The public website is https://sebastiankoh1996.github.io/banana/ . GitHub Pages 
 
 The Open canvas interface uses top controls on desktop and a paste-first mobile layout at widths up to 700px. Mobile secondary actions, switches, sizes, and appearance live in the Tools sheet. A single editor and the original control nodes preserve content and state across resizing. The introductory loading animation remains; background video playback has been removed, with media assets retained unused. New workspaces start blank; saved reading text and day/night preference use their existing browser storage keys. The owner approved publication of this November 2 revision.
 
-## Read Chinese from an image
+## Read and translate images
 
-Click **Image**, then paste a copied image (Ctrl+V / Command+V), drag an image into the window, or choose a file. Simplified and Traditional Chinese are recognized on your device, then shown in an editable review. Flowing text joins image-wrapped lines, removes stray spaces, and preserves blank-line paragraphs and numbered lists. Choose Keep line breaks for poems or lists. Click Add to reading box to append the reviewed text with pinyin; nothing is inserted until you confirm. Undo removes the insertion. Recognition needs an internet connection to download Tesseract.js and Chinese language files on first use; images are not uploaded. Clear printed text works best. Close the window to cancel processing.
+Choose or paste an image in Import image. OCR.space Engine 2 recognizes Chinese text; English overlays are generated automatically over blurred text areas. The review box allows one line per detected region; editing it regenerates the image. Download PNG saves the result. The image is uploaded to OCR.space; translation sends recognized text to MyMemory. Free-service availability and quotas apply.
+
+The public page uses https://banana-ocr-sebastian.sbstko.chatgpt.site/api/ocr . This hosted backend keeps the OCR key in a runtime secret. It accepts JPEG uploads below 950 KB from the Banana page origin. OCR results are cached temporarily and requests are rate limited per running instance. Browser text translation runs up to three requests concurrently and caches successful lines for the session.
+
+## Local online OCR
+
+Copy .env.example to .env and put your free OCR.space key there; restart the local server. Never commit .env. The public site uses its hosted backend instead of the local server. The free plan lists 25,000 requests/month, 500/day/IP and 1 MB/file (checked November 3, 2026). The supplied durian image was tested successfully. Hosted quota is shared by visitors.

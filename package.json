@@ -10,6 +10,6 @@
     "start": "node server.cjs",
     "prepare-dictionary": "node prepare-dictionary.cjs",
     "test": "node timer.test.cjs && node synced-clock.test.cjs && node audio.test.cjs && node image-clipboard.test.cjs && node theme.test.cjs",
-    "check": "node --check loading.js && node --check app.js && node --check server.cjs && node --check timer.js && node --check synced-clock.js && node --check internet-time.cjs && node --check image-clipboard.js && node --check theme.js && node --check background-video.js"
+    "check": "node --check loading.js && node --check app.js && node --check server.cjs && node --check timer.js && node --check synced-clock.js && node --check internet-time.cjs && node --check image-clipboard.js && node --check theme.js && node --check background-video.js && node --check cloud-ocr.cjs"
   }
 }

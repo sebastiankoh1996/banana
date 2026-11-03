@@ -122,3 +122,59 @@ button{height:44px;font-size:15px;border-radius:10px;background:linear-gradient(
 .ambient-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;pointer-events:none;filter:brightness(.55)}
 body{isolation:isolate;background-color:#080d14;background-image:none}
 html{background:radial-gradient(ellipse at 50% 0%,#365d83,#080d14 75%)}
+
+#image-canvas{display:block;max-width:100%;height:auto;margin:16px 0}
+
+#image-regions>div{display:grid;gap:6px;margin:12px 0}#image-regions input[type=text]{width:100%;box-sizing:border-box;padding:10px;color:inherit;background:transparent;border:1px solid #888;border-radius:6px;font:inherit}#image-regions input[type=checkbox]{width:auto;margin-right:8px}
+
+.image-heading-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}.image-heading-actions .image-choose{margin:0;white-space:nowrap}.image-heading{flex-wrap:wrap;gap:8px}.image-heading h2{flex:1;min-width:160px}.drag-over#image-dialog{outline:2px dashed var(--accent);outline-offset:-5px}
+
+/* Animate reading switches in both the toolbar and mobile Tools sheet. */
+.canvas-preferences>button::after,.tool-switches>button::after{
+ transition:right 220ms cubic-bezier(.22,.61,.36,1),background-color 180ms ease,box-shadow 180ms ease;
+}
+.canvas-preferences>button::before,.tool-switches>button::before{
+ transition:background-color 180ms ease;
+}
+@media(prefers-reduced-motion:reduce){
+ .canvas-preferences>button::after,.tool-switches>button::after,
+ .canvas-preferences>button::before,.tool-switches>button::before{transition:none}
+}
+
+/* A single highlight travels between the options. */
+.size-options{position:relative;display:grid;grid-template-columns:repeat(3,1fr);isolation:isolate;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.size-options::before,#night-mode::before{content:'';position:absolute;inset:0 auto 0 0;background:linear-gradient(145deg,#f0dfc2,#d7c3a1 48%,#b69e78);box-shadow:inset 0 1px #fff9;z-index:0;pointer-events:none;transition:transform 240ms cubic-bezier(.22,.61,.36,1);border-radius:8px}
+.size-options::before{width:33.333333%;transform:translateX(100%)}
+.size-options:has([data-size=small][aria-pressed=true])::before{transform:translateX(0)}
+.size-options:has([data-size=large][aria-pressed=true])::before{transform:translateX(200%)}
+.sizes .size-options button,.sizes .size-options button[aria-pressed=true]{position:relative;z-index:1;background:transparent;box-shadow:none;border:0;border-radius:0;padding:0 16px}
+.sizes .size-options button[aria-pressed=true]{color:#191714}
+#night-mode{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr}
+#night-mode::before{width:50%;transform:translateX(0)}
+#night-mode[aria-pressed=true]::before{transform:translateX(100%)}
+#night-mode span{position:relative;z-index:1;transition:color 180ms ease}
+#night-mode[aria-pressed=false] .mode-day,#night-mode[aria-pressed=true] .mode-night{background:transparent;box-shadow:none;color:#191714}
+@media(max-width:700px){.sizes .size-options button{padding:0 10px}}
+@media(prefers-reduced-motion:reduce){.size-options::before,#night-mode::before,#night-mode span{transition:none}}
+
+/* Keep the reading box's thin frame while typing. */
+#editor:focus,#editor:focus-visible{outline:none;box-shadow:none}
+/* Small feedback animations; no extra messages or layout shifts. */
+@keyframes banana-reveal{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes banana-fade{from{opacity:0}to{opacity:1}}
+@keyframes banana-spin{to{transform:rotate(360deg)}}
+@keyframes banana-feedback{0%{transform:scale(.8);opacity:.5}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+#copy{position:relative}
+#copy[data-copied=true] svg{opacity:0}
+#copy[data-copied=true]::after{content:'✓';position:absolute;left:12px;font-size:19px;animation:banana-feedback 220ms ease-out}
+#copy svg{transition:opacity 140ms ease}
+#image-dialog[open],#tools-dialog[open]{animation:banana-reveal 180ms ease-out}
+#image-dialog[open]::backdrop,#tools-dialog[open]::backdrop{animation:banana-fade 180ms ease-out}
+#word-tip:not([hidden]){animation:banana-reveal 120ms ease-out}
+#image-result:not([hidden]){animation:banana-reveal 240ms ease-out}
+#image-status{display:flex;align-items:center;gap:8px}
+#image-dialog[aria-busy=true] #image-status::before,#image-dialog[data-translating=true] #image-status::before{content:'';display:block;flex:0 0 13px;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--ink);border-radius:50%;animation:banana-spin 750ms linear infinite}
+.audio-buttons button{transition:opacity 180ms ease,background-color 180ms ease,box-shadow 180ms ease}
+#play[data-state=playing] svg,#play[data-state=paused] svg,#pause[data-state=paused] svg{animation:banana-feedback 220ms ease-out}
+#play svg,#pause svg{transition:opacity 180ms ease,transform 180ms ease}
+@media(prefers-reduced-motion:reduce){#copy svg,.audio-buttons button,#play svg,#pause svg{transition:none}#copy[data-copied=true]::after,#image-dialog[open],#tools-dialog[open],#image-dialog::backdrop,#tools-dialog::backdrop,#word-tip,#image-result,#image-status::before,#play svg,#pause svg{animation:none!important}}

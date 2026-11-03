@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
-const nodes=Object.fromEntries(['play','play-label','pause','stop','speed','audio-progress','audio-elapsed'].map(id=>[id,{}]));
+const nodes=Object.fromEntries(['play','play-label','pause','stop','speed','audio-progress','audio-elapsed'].map(id=>[id,{setAttribute(name,value){this[name]=value;}}]));
 nodes.speed.value='1';
 let spoken;
 const speech={getVoices:()=>[{lang:'zh-CN'}],cancel(){},speak(u){spoken=u},pause(){},resume(){}};
